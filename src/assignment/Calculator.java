@@ -3,79 +3,81 @@ package assignment;
 import java.util.Scanner;
 
 public class Calculator {
-	static int selection;
+	int num1, num2, res;
 	
-	int calculate(int x, int y) {
-		if(selection==1) {
-			int res = x+y;
-			System.out.println(res);
-			return res;	
-		}
-		else if(selection==2) {
-			int res = x-y;
-			System.out.println(res);
-			return res;	
-		}
-		else if(selection==3) {
-			int res = x*y;
-			System.out.println(res);
-			return res;	
-		}
-		else if(selection==4) {
-			int res = x/y;
-			System.out.println(res);
-			return res;	
-		}
-		return 0;
-		
+	int secondNumber() {
+		System.out.print("Second integer:");
+		Scanner input = new Scanner(System.in);
+		num2 = input.nextInt();
+		return num2;
 	}
+
+	int add(int num1) {
+		res = num1+secondNumber();
+		return res;
+	}
+	
+	int subtract(int num1) {
+		res = num1-secondNumber();
+		return res;
+	}
+	
+	int multiply(int num1) {
+		res = num1 * secondNumber();
+		return res;
+	}
+	
+	int divide(int num1) {
+		res = num1 / secondNumber();
+		return res;
+	}
+	
+	String backspace(String number) {
+		
+		String temp="";
+		char[] charArray = number.toCharArray();
+		for(int i=0;i<charArray.length-1;i++) {
+			temp += Character.toString(charArray[i]);
+		}
+		if(temp.length()==0) {
+			System.out.println("Nothing to display");
+		}
+		return temp;
+	}
+	
 
 	public static void main(String[] args) {
 		Calculator calculator = new Calculator();
-		String menuFormat = "|%2d|%15s|";
-		String[] menuItems = {"Addition","Subtraction","Multiplication","Division"};
-		do {
-			Scanner input1 = new Scanner(System.in);
-			System.out.print("input num 1 : ");
-			int num1 = input1.nextInt();
-			
-			Scanner input2 = new Scanner(System.in);
-			System.out.print("input num 2 : ");
-			int num2 = input2.nextInt();
-			System.out.println();
-			System.out.println("+--+---------------+");
-			System.out.println("|ID|   Operation   |");
-			System.out.println("+--+---------------+");
-			for(int i=0;i<4;i++) {
-				System.out.format(menuFormat, i+1, menuItems[i]);
-				System.out.println();
-			}
-			System.out.println("+--+---------------+");
-			
-			System.out.print("Choose Operation: ");
-			Scanner input = new Scanner(System.in);
-			switch(input.nextInt()) {
-			case 1:
-				selection = 1;
-				System.out.print("Addition is : ");
-				calculator.calculate(num1, num2);
-				break;
-			case 2:
-				selection = 2;
-				System.out.print("Subtraction is : ");
-				calculator.calculate(num1, num2);
-				break;
-			case 3:
-				selection = 3;
-				System.out.print("Multiplication is : ");
-				calculator.calculate(num1, num2);
-				break;
-			case 4:
-				selection = 4;
-				System.out.print("Division is : ");
-				calculator.calculate(num1, num2);
-				break;
-			}
-		}while(true);
+		System.out.print("First integer: ");
+		Scanner input  = new Scanner(System.in);
+		calculator.num1 = input.nextInt();
+		
+		
+		System.out.print("Choose Operation: (+ - * / b d):  ");
+		char operation = input.next().charAt(0);
+		
+		switch(operation) {
+		case '+':
+			System.out.print(calculator.add(calculator.num1));
+			break;
+		case '-':
+			System.out.println(calculator.subtract(calculator.num1));
+			break;
+		case '*':
+			System.out.println(calculator.multiply(calculator.num1));
+			break;
+		case '/':
+			System.out.println(calculator.divide(calculator.num1));
+			break;
+		case 'b':
+			String numberToString = Integer.toString(calculator.num1);
+			System.out.println(calculator.backspace(numberToString));
+			break;
+		case 'd':
+			double decimal = calculator.num1;
+			System.out.println(decimal);
+		}
+		
+		
 	}
 }
